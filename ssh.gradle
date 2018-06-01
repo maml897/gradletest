@@ -1,0 +1,79 @@
+apply plugin: 'org.hidetake.ssh'  
+buildscript{  
+    repositories {  
+        jcenter()  
+        mavenCentral()  
+    }  
+      
+     dependencies {  
+        classpath 'org.hidetake:gradle-ssh-plugin:2.6.0'  
+      }  
+      
+} 
+
+ssh.settings {  
+  knownHosts = allowAnyHosts  
+}  
+  
+remotes {  
+  deployServer {  
+    host = '155.94.187.66'  
+    port=22
+    user = 'root'  
+    password = '*******'  
+  }  
+}  
+
+task copy() << {  
+  ssh.run {  
+    session(remotes.deployServer) {  
+      println 'start copying war...'   
+      put from: 'd://3.jpg', into: '/'  
+      execute 'ls webapps'
+    }  
+  }  
+}  
+
+
+/*
+task shutdownTomcat() << {  
+  ssh.run {  
+    session(remotes.deployServer) {  
+      println 'shut down tomcat...'   
+      executeScript '''#!/bin/sh  
+                        cd /opt/app/apache-tomcat-7.0.67/bin  
+                        ./shutdown.sh  
+                    '''  
+    }  
+  }  
+}  
+  
+task del(dependsOn:shutdownTomcat) << {  
+  ssh.run {  
+    session(remotes.deployServer) {  
+      println 'start deleting...'   
+      executeScript '''#!/bin/sh  
+                        rm -rf /opt/app/apache-tomcat-7.0.67/webapps/cloud_server  
+                        rm -f /opt/app/apache-tomcat-7.0.67/webapps/cloud_server.war  
+                    '''  
+    }  
+  }  
+}  
+  
+task copy(dependsOn:del) << {  
+  ssh.run {  
+    session(remotes.deployServer) {  
+      println 'start copying war...'   
+      put from: buildDir.toString() + '/libs/cloud_server.war', into: '/opt/app/apache-tomcat-7.0.67/webapps'  
+    }  
+  }  
+}  
+  
+task deploy(dependsOn:copy) << {  
+  ssh.run {  
+    session(remotes.deployServer) {  
+      println 'start tomcat...'   
+      execute '/opt/app/apache-tomcat-7.0.67/bin/startup.sh'  
+    }  
+  }  
+  */
