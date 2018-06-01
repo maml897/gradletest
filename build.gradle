@@ -1,23 +1,32 @@
 plugins {
     id 'base'
+    id 'java-library'
 }
 
 //base插件声明配置，base默认创建了两个configurations 分别是default和archives。testok是我们自己建立的。
 configurations{
+	testjar
 	testok
 }
 
 //这里我们配置 default，archives，testok,New builds and plugins should not be using the default configuration!
-task sssss (type: Jar) <<{
+task testJar (type: Jar) {
 	println "jar..............."
     archiveName = "common-resources.jar"
 }
 
+task testA (type: Jar){
+	println "aaa..............."
+    archiveName = "common---saaaa--resources.jar"
+}
+
+task testZip (type: Jar){
+	println "zip..............."
+    archiveName = "common-----resources.jar"
+}
+
 artifacts {
-	testok sssss
+	testjar testJar
+	testok  testZip
+	archives testA
 }
-
-repositories {
-    jcenter()
-}
-

@@ -5,10 +5,12 @@ configurations {
     shared
 }
 task sharedJar(type: Jar) {
-    archiveName = "common-resources.jar"
+  //  archiveName = "common-resources.jar"
 }
 artifacts {
-   shared sharedJar
+   //	shared sharedJar
+   	shared file: 'A.jar', name: 'A', type: 'jar'
+ 	shared file: 'A-sources.jar', name: 'A-sources', type: 'jar'
 }
 uploadShared {
     //repositories { add project.repositories.localRepository }
