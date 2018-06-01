@@ -1,0 +1,15 @@
+apply plugin: 'java'
+version = '1.0-SNAPSHOT'
+group = 'com.some'
+configurations {
+    shared
+}
+task sharedJar(type: Jar) {
+    archiveName = "common-resources.jar"
+}
+artifacts {
+   shared sharedJar
+}
+uploadShared {
+    //repositories { add project.repositories.localRepository }
+}

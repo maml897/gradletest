@@ -4,6 +4,8 @@
 public class Library {
     public boolean someLibraryMethod() {
     	System.out.println("okok");
+    	System.out.println("okok");
+    	System.out.println("okok");
         return true;
     }
 }
