@@ -5,13 +5,24 @@ plugins {
 
 //base插件声明配置，base默认创建了两个configurations 分别是default和archives。testok是我们自己建立的。
 configurations{
-	testjar
-	testok
+	testok{
+		println "================================="+it.class
+	}
+	testjar{
+		println allArtifacts.hashCode();
+		println artifacts.class;
+		println name;
+		println "----------------------------------"+it.class
+	}
+	
+	println archives.allArtifacts[0].file;
 }
+
 
 //这里我们配置 default，archives，testok,New builds and plugins should not be using the default configuration!
 task testJar (type: Jar) {
 	println "jar..............."
+	version=1
     archiveName = "common-resources.jar"
 }
 
